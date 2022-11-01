@@ -1,0 +1,106 @@
+plugins {
+    id 'java-library'
+//    id 'maven-publish'
+}
+
+group 'com.amdevelopers.logger'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+jar {
+    manifest {
+        attributes(
+                [
+                        'Built-Date'              : new Date().format('dd-MM-yyyy HH:mm:ss'),
+                        'Implementation-Vendor'   : "AM Developers",
+                        'Implementation-Version'  : project.getVersion(),
+                        'Implementation-Vendor-Id': "com.amdevelopers",
+                        'Specification-Vendor'    : "AM Developers",
+                        'Jar-Version'             : project.getVersion(),
+                        'Build-At'                : new Date().format('dd-MM-yyyy HH:mm:ss'),
+                        'Jar-Vendor'              : "AM Developers"
+                ])
+    }
+}
+dependencies {
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
+// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            artifactId = 'AM-Logger'
+//            from components.java
+//            versionMapping {
+//                usage('java-api') {
+//                    fromResolutionOf('runtimeClasspath')
+//                }
+//                usage('java-runtime') {
+//                    fromResolutionResult()
+//                }
+//            }
+//            pom {
+//                name = 'AM-Logger'
+//                description = 'A Wrapper for logging in an application based on Apache Log4j'
+//                url = 'https://github.com/realmoieen/Logger'
+////                properties = [
+////                        myProp: "value",
+////                        "prop.with.dots": "anotherValue"
+////                ]
+//                licenses {
+//                    license {
+//                        name = 'The Apache License, Version 2.0'
+//                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id = 'realmoieen'
+//                        name = 'Moieen Abbas'
+//                        email = 'realmoieen@gmail.com'
+//                    }
+//                }
+//                scm {
+//                    connection = 'scm:git@github.com:realmoieen/Logger.git'
+//                    developerConnection = 'scm:git@github.com:realmoieen/Logger.git'
+//                    url = 'https://github.com/realmoieen/Logger'
+//                }
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url = 'https://github.com/realmoieen/am-developer-repo.git'
+////            // change URLs to point to your repos, e.g. http://my.org/repo
+////            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
+////            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+////            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//        }
+//    }
+//}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
